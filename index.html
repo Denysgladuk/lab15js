@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Tasks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .task {
+            margin-bottom: 20px;
+        }
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Tasks</h1>
+
+    <div class="task">
+        <h2>1. Завдання</h2>
+        <a href="https://example.com">Example Link</a>
+        <a href="http://example.com">Example Link</a>
+        <a href="https://google.com">Google</a>
+        <script>
+            document.querySelectorAll('a').forEach(link => {
+                if (link.href.startsWith('https://')) {
+                    link.setAttribute('target', '_blank');
+                }
+            });
+        </script>
+    </div>
+
+    <div class="task">
+        <h2>2. Завдання</h2>
+        <h2 class="head">header1</h2>
+        <h2 class="head">header2 <span class="inner">inner elem1</span></h2>
+        <h2>header3</h2>
+        <h2 class="head">header4<span>inner elem2</span></h2>
+        <h2>header5</h2>
+        <script>
+            document.querySelectorAll('h2.head').forEach(h2 => {
+                h2.style.backgroundColor = 'green';
+                h2.querySelectorAll('.inner').forEach(inner => {
+                    inner.style.fontSize = '35px';
+                });
+            });
+        </script>
+    </div>
+
+    <div class="task">
+        <h2>3. Завдання</h2>
+        <div>text1</div>
+        <h3>header1</h3>
+        <div>text2</div>
+        <h3>header2</h3>
+        <script>
+            document.querySelectorAll('h3').forEach(h3 => {
+                const div = h3.previousElementSibling;
+                if (div && div.tagName === 'DIV') {
+                    h3.parentNode.insertBefore(div, h3);
+                }
+            });
+        </script>
+    </div>
+
+    <div class="task">
+        <h2>4. Завдання</h2>
+        <input type="checkbox" class="check" name="check1">
+        <input type="checkbox" class="check" name="check2">
+        <input type="checkbox" class="check" name="check3">
+        <input type="checkbox" class="check" name="check4">
+        <input type="checkbox" class="check" name="check5">
+        <input type="checkbox" class="check" name="check6">
+        <script>
+            document.querySelectorAll('.check').forEach(checkbox => {
+                checkbox.addEventListener('change', () => {
+                    if (document.querySelectorAll('.check:checked').length >= 3) {
+                        document.querySelectorAll('.check').forEach(box => box.disabled = true);
+                    }
+                });
+            });
+        </script>
+    </div>
+
+    <div class="task">
+        <h2>Від 5 до 9 все в консолі</h2>
+        <script>
+            let arr = ["Tom", "Sam", "Ray", "Bob"];
+            let [x, y, , z] = arr;
+            console.log(x); // "Tom"
+            console.log(y); // "Sam"
+            console.log(z); // "Bob"
+        </script>
+    </div>
+
+    <div class="task">
+        <script>
+            let data = {
+                names: ["Sam", "Tom", "Ray", "Bob"],
+                ages: [20, 24, 22, 26],
+            };
+            let { names: [, name2, , name4], ages: [, age2, , age4] } = data;
+            console.log(name2); // "Tom"
+            console.log(age2); // 24
+            console.log(name4); // "Bob"
+            console.log(age4); // 26
+        </script>
+    </div>
+
+    <div class="task">
+        <script>
+            function mul(...args) {
+                const numbers = args.filter(arg => typeof arg === 'number');
+                return numbers.length > 0 ? numbers.reduce((acc, num) => acc * num, 1) : 0;
+            }
+            console.log(mul(1, "str", 2, 3, true)); // 6
+            console.log(mul(null, "str", false, true)); // 0
+        </script>
+    </div>
+
+    <div class="task">
+        <script>
+            let server = {
+                data: 0,
+                convertToString(callback) {
+                    callback(() => this.data + "");
+                }
+            };
+            let client = {
+                server: server,
+                result: "",
+                calc(data) {
+                    this.server.data = data;
+                    this.server.convertToString(this.notification());
+                },
+                notification() {
+                    return (callback) => {
+                        this.result = callback();
+                    };
+                }
+            };
+            client.calc(123);
+            console.log(client.result); // "123"
+            console.log(typeof client.result); // "string"
+        </script>
+    </div>
+
+    <div class="task">
+        <script>
+            function mapBuilder(keysArray, valuesArray) {
+                const map = new Map();
+                keysArray.forEach((key, index) => {
+                    map.set(key, valuesArray[index]);
+                });
+                return map;
+            }
+            let keys = [1, 2, 3, 4];
+            let values = ["div", "span", "b", "i"];
+            let map = mapBuilder(keys, values);
+            console.log(map.size); // 4
+            console.log(map.get(2)); // "span"
+        </script>
+    </div>
+
+</body>
+</html>
